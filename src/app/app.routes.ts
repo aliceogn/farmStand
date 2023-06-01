@@ -7,17 +7,18 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    loadComponent: () => import('./pages/splash/splash.page').then((m) => m.SplashPage),
     pathMatch: 'full',
   },
+  // {
+  //   path: '',
+  //   redirectTo: 'home',
+  //   pathMatch: 'full',
+  // },
   {
     path: 'cart',
     loadComponent: () => import('./pages/cart/cart.page').then( m => m.CartPage)
   },
-  // {
-  //   path: 'details',
-  //   loadComponent: () => import('./pages/details/details.page').then( m => m.DetailsPage)
-  // },
   {
     path: 'product/:id',
     loadComponent: () => import('./pages/details/details.page').then( m => m.DetailsPage)
@@ -25,5 +26,6 @@ export const routes: Routes = [
   {
     path: 'checkout',
     loadComponent: () => import('./pages/checkout/checkout.page').then( m => m.CheckoutPage)
-  }
+  },
+
 ];

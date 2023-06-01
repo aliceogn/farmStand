@@ -19,6 +19,8 @@ export class CheckoutPage implements OnInit {
   address1: any;
   city: any;
   dni: any;
+  isToastOpen = false;
+  toastMessage = '';
 
   constructor(apiService: ApiService) {
     this.service = apiService;
@@ -39,12 +41,22 @@ export class CheckoutPage implements OnInit {
       const custumerAddress = this.createXml(this.countryId, this.alias, this.address1, this.city, this.dni);
       this.service.sendAddress(custumerAddress).subscribe((response: any) => {
         console.log(response);
+        if (response.address) {
+          this.toastMessage = 'User added successfully!';
+          this.setOpen(true);
+        } else {
+          this.toastMessage = 'There was a problem adding the user :(';
+          this.setOpen(true);
+        }
       })
     } else {
       //error, can't submit
       console.log('error, can\'t submit');
+      this.toastMessage = 'There was a problem adding the user :(';
+      this.setOpen(true);
     }
   }
+  
 
   public createXml(country: number, alias: string, address: string, city: string, dni: string | null) {
     if (dni) {
@@ -73,6 +85,10 @@ export class CheckoutPage implements OnInit {
       </address>
     </prestashop>`;
 
+  }
+
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
 
 }
