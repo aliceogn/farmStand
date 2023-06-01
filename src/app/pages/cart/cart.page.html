@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Your cart</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-progress-bar *ngIf="loadingProducts" type="indeterminate"></ion-progress-bar>
+  <ion-list *ngIf="!loadingProducts && products" [inset]="true">
+    <ion-item-sliding *ngFor="let product of products">
+      <ion-item>
+        <ion-label>{{product.name}} ({{product.price}}$) x {{product.quantity}}
+        </ion-label>
+        <ion-badge>{{product.price * product.quantity}} $</ion-badge>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option (click)="deleteProductFromStorage(product.id)">Remove</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-button *ngIf="!loadingProducts && products" routerLink="/checkout">Checkout</ion-button>
+  <ion-header *ngIf="!loadingProducts && !products">There are no products in your cart</ion-header>
+  <app-bottom-menu [cartItemsNumber]="cartItemsNumber"></app-bottom-menu>
+</ion-content>

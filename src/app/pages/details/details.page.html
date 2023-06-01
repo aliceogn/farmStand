@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Product details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-progress-bar *ngIf="!loadedProduct" type="indeterminate"></ion-progress-bar>
+  <ion-card *ngIf="loadedProduct">
+    <img alt={{product.name}} src="http://juditp.cat/project/api/images/products/{{id}}/{{product.id_default_image}}&ws_key=DLE4EUM5NE65Q6XATQXMN9UM4M373ILR"/>
+    <ion-card-header>
+      <ion-card-title>{{product.name}}</ion-card-title>
+      <ion-card-subtitle>Price: {{product.price}}$</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>{{product.description}}</ion-card-content>
+    <ion-item>
+      <ion-input label="Quantity:" type="number" placeholder="0" [(ngModel)]="quantity"></ion-input>
+    </ion-item>
+    <ion-button [disabled]="quantity === 0" (click)="addProductToCart()">Add to Cart</ion-button>
+  </ion-card>
+  <app-bottom-menu></app-bottom-menu>
+</ion-content>

@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Home</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+  <ion-list *ngIf="!loading && products" [inset]="true">
+    <ion-item-sliding *ngFor="let product of products">
+      <ion-item routerLink="/product/{{product.id}}">
+        <ion-label class="label-header">{{product.name}}
+          <ion-img class="label-cover" src="http://juditp.cat/project/api/images/products/{{product.id}}/{{product.id_default_image}}&ws_key=DLE4EUM5NE65Q6XATQXMN9UM4M373ILR" alt="product image"></ion-img>
+        </ion-label>
+        <!-- <ion-button slot="end">Add to Cart</ion-button> -->
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option>Buy</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-header *ngIf="!loading && !products">There was a problem loading products</ion-header>
+  <app-bottom-menu></app-bottom-menu>
+</ion-content>
